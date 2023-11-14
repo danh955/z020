@@ -1,0 +1,15 @@
+﻿table.TicTacToe {
+    margin: auto;
+}
+
+    table.TicTacToe > tr:first-child {
+        border-bottom: 1px solid black; /* not working */
+    }
+
+    table.TicTacToe > tbody > tr > td {
+        width: 100px;
+        height: 100px;
+        background-color: whitesmoke;
+        text-align: center;
+        cursor: pointer;
+    }

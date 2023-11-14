@@ -4,10 +4,34 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-@Body
+<MudLayout>
+    <MudAppBar Elevation="1" Dense=true>
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@(e => {drawerOpen = !drawerOpen;})" />
+        <MudIconButton Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Href="\" />
+        <MudText Typo="Typo.h4">Games</MudText>
+        <MudSpacer />
+    </MudAppBar>
+    <MudDrawer @bind-Open="drawerOpen" Elevation="2" Anchor="@Anchor.Start" Variant="@DrawerVariant.Temporary">
+        <MudDrawerHeader Dense=true>
+            <MudText Typo="Typo.h4" Class="mt-1">Games</MudText>
+        </MudDrawerHeader>
+        <MudNavMenu Dense=true>
+            <MudNavLink Href="\" Match="NavLinkMatch.All">Home</MudNavLink>
+            <MudNavLink Href="\Tic-Tac-Toe" Match="NavLinkMatch.All">Tic-Tac-Toe</MudNavLink>
+        </MudNavMenu>
+    </MudDrawer>
+    <MudMainContent Class="ma-3">
+        @Body
+    </MudMainContent>
+</MudLayout>
 
 <div id="blazor-error-ui">
     An unhandled error has occurred.
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
+
+@code {
+    bool drawerOpen = false;
+}
+

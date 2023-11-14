@@ -1,0 +1,33 @@
+﻿@page "/Tic-Tac-Toe"
+
+<h3>Tic-Tac-Toe</h3>
+
+<table class="TicTacToe">
+    <tbody>
+        @for (int row = 1; row < 9; row += 3)
+        {
+            <tr>
+                @for (int col = 0; col < 3; col++)
+                {
+                    int idx = row + col;
+                    <td onclick="@(()=>todo(idx))">@idx</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+@message
+
+@code
+{
+    int count = 1;
+    string? message;
+
+    void todo(int idx)
+    {
+        count++;
+        message = $"={count}, {idx}=";
+        this.StateHasChanged();
+    }
+}

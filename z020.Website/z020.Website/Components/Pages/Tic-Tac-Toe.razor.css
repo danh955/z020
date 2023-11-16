@@ -1,15 +1,21 @@
 ﻿table.TicTacToe {
     margin: auto;
+    border-spacing: 0px;
 }
 
-    table.TicTacToe > tr:first-child {
-        border-bottom: 1px solid black; /* not working */
+    table.TicTacToe > tr:nth-child(-n+2) > td {
+        border-bottom: 5px solid black;
     }
 
-    table.TicTacToe > tbody > tr > td {
+    table.TicTacToe > tr > td:nth-child(-n+2) {
+        border-right: 5px solid black;
+    }
+
+    table.TicTacToe > tr > td {
         width: 100px;
         height: 100px;
         background-color: whitesmoke;
         text-align: center;
+        font-size:60px;
         cursor: pointer;
     }

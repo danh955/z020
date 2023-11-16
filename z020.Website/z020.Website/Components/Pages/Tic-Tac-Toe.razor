@@ -3,18 +3,16 @@
 <h3>Tic-Tac-Toe</h3>
 
 <table class="TicTacToe">
-    <tbody>
-        @for (int row = 1; row < 9; row += 3)
-        {
-            <tr>
-                @for (int col = 0; col < 3; col++)
-                {
-                    int idx = row + col;
-                    <td onclick="@(()=>todo(idx))">@idx</td>
-                }
-            </tr>
-        }
-    </tbody>
+    @for (int row = 1; row < 9; row += 3)
+    {
+        <tr>
+            @for (int col = 0; col < 3; col++)
+            {
+                int idx = row + col;
+                <td onclick="@(()=>todo(idx))">@Mark(idx)</td>
+            }
+        </tr>
+    }
 </table>
 
 @message
@@ -29,5 +27,10 @@
         count++;
         message = $"={count}, {idx}=";
         this.StateHasChanged();
+    }
+
+    char Mark(int idx)
+    {
+        return idx % 2 == 1 ? '\u2715' : '\u25EF';
     }
 }

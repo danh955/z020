@@ -1,5 +1,6 @@
 using MudBlazor.Services;
 using z020.Website.Components;
+using z020.Website.Services.TicTacToe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +9,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
-builder.Services.AddMudServices();
+builder.Services.AddMudServices()
+    .AddTicTacToeEngine();
 
 var app = builder.Build();
 

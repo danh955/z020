@@ -1,36 +1,77 @@
 ﻿@page "/Tic-Tac-Toe"
+@using z020.Website.Services.TicTacToe;
+@inject TicTacToeEngine ttt
+@implements IDisposable
 
 <h3>Tic-Tac-Toe</h3>
+<MudDivider Class="my-3"/>
 
-<table class="TicTacToe">
-    @for (int row = 1; row < 9; row += 3)
-    {
-        <tr>
-            @for (int col = 0; col < 3; col++)
+<MudGrid>
+    <MudItem>
+        <b>Board</b>
+        <table class="TttInfo">
+            <tr><td>Name:</td><td>@ttt.Board?.Name</td></tr>
+            <tr><td>Player X:</td><td>@ttt.Board?.PlayerX?.Name</td></tr>
+            <tr><td>Player O:</td><td>@ttt.Board?.PlayerO?.Name</td></tr>
+        </table>
+        <MudButton OnClick="@(() =>ClearBoard())" Color="Color.Primary">Clear Board</MudButton>
+    </MudItem>
+    <MudItem>
+        <table class="TicTacToe">
+            @for (int row = 0; row < 9; row += 3)
             {
-                int idx = row + col;
-                <td onclick="@(()=>todo(idx))">@Mark(idx)</td>
+                <tr>
+                    @for (int col = 0; col < 3; col++)
+                    {
+                        int idx = row + col;
+                        <td onclick="@(()=>SetPiece(idx))">@GetMark(idx)</td>
+                    }
+                </tr>
             }
-        </tr>
-    }
-</table>
-
-@message
+        </table>
+    </MudItem>
+</MudGrid>
 
 @code
 {
-    int count = 1;
-    string? message;
-
-    void todo(int idx)
+    protected override void OnInitialized()
     {
-        count++;
-        message = $"={count}, {idx}=";
+        base.OnInitialized();
+        ttt.Board.OnBoardChanged += BoardChanged;
+        ttt.Board.PlayerX = new("Mr. X");
+        ttt.Board.PlayerO = new("Mr. O");
+    }
+
+    void SetPiece(int idx)
+    {
+        if (ttt.Board.PlayerX != null)
+        {
+            ttt.Board.SetPayerPiece(idx, ttt.Board.PlayerX);
+        }
+    }
+
+    char GetMark(int idx)
+    {
+        return ttt.Board.Square[idx] switch
+                {
+                    Pieces.X => '\u2715',
+                    Pieces.O => '\u25EF',
+                    _ => ' ',
+                };
+    }
+
+    void BoardChanged()
+    {
         this.StateHasChanged();
     }
 
-    char Mark(int idx)
+    void ClearBoard()
     {
-        return idx % 2 == 1 ? '\u2715' : '\u25EF';
+        ttt.Board.ClearBoard();
+    }
+
+    public void Dispose()
+    {
+        ttt.Board.OnBoardChanged -= BoardChanged;
     }
 }

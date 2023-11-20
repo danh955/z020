@@ -1,5 +1,4 @@
 ﻿table.TicTacToe {
-    margin: auto;
     border-spacing: 0px;
 }
 
@@ -16,6 +15,17 @@
         height: 100px;
         background-color: whitesmoke;
         text-align: center;
-        font-size:60px;
+        font-size: 60px;
         cursor: pointer;
+    }
+
+table.TttInfo {
+    border: 1px dotted gray;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+    table.TttInfo > tr > td:first-child {
+        text-align: right;
+        padding-right: 5px;
     }

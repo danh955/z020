@@ -8,8 +8,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\z020.Website.Client\z020.Website.Client.csproj" />
+    <PackageReference Include="Blazored.LocalStorage" Version="4.4.0" />
+    <PackageReference Include="Blazored.SessionStorage" Version="2.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0" />
-    <PackageReference Include="MudBlazor" Version="6.11.0" />
+    <PackageReference Include="MudBlazor" Version="6.11.1" />
   </ItemGroup>
 
 </Project>

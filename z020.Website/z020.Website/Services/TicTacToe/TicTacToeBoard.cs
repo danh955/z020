@@ -2,18 +2,31 @@
 
 public class TicTacToeBoard
 {
-    public TicTacToeBoard()
+    public TicTacToeBoard(string name)
     {
+        Name = name;
         Square = new Pieces[9];
         ClearBoard();
     }
 
-    public string Name { get; set; } = string.Empty;
+    /// <summary>
+    /// Name of the board.
+    /// </summary>
+    public string Name { get; init; }
 
+    /// <summary>
+    /// Squares on the board.
+    /// </summary>
     public Pieces[] Square { get; init; }
 
+    /// <summary>
+    /// Player X.
+    /// </summary>
     public TicTacToePlayer? PlayerX { get; set; }
 
+    /// <summary>
+    /// Player O.
+    /// </summary>
     public TicTacToePlayer? PlayerO { get; set; }
 
     public bool SetPayerPiece(int idx, TicTacToePlayer player)

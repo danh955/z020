@@ -1,0 +1,19 @@
+﻿<MudPaper Elevation="3" Class="pa-1 ma-2">
+    <MudPaper Elevation="2" Class="pa-2 mb-2">
+        <b>Name</b>: @board?.Name &nbsp; &nbsp;  <b>X</b>: @board?.PlayerX?.Name &nbsp; &nbsp; <b>O</b>: @board?.PlayerO?.Name
+    </MudPaper>
+    <table class="TicTacToe">
+        @for (int row = 0; row < 9; row += 3)
+        {
+            <tr>
+                @for (int col = 0; col < 3; col++)
+                {
+                    int idx = row + col;
+                    <td onclick="@(()=>SetPiece(idx))">@MarkThisSpot(idx)</td>
+                }
+            </tr>
+        }
+    </table>
+    <MudButton OnClick="@(() =>ClearBoard())" Color="Color.Primary">Clear Board</MudButton>
+    @message
+</MudPaper>

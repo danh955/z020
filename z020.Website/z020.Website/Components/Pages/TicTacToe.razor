@@ -1,4 +1,4 @@
-﻿@page "/Tic-Tac-Toe"
+﻿@page "/TicTacToe"
 @using z020.Website.Services;
 @using z020.Website.Services.TicTacToe;
 @inject TicTacToeEngine ttt
@@ -18,7 +18,7 @@
         @foreach (var item in boardNames)
         {
             <MudItem>
-                <Tic_Tac_Toe_Board BoardName="@item" />
+                <TicTacToe_Board BoardName="@item" />
             </MudItem>
         }
     }

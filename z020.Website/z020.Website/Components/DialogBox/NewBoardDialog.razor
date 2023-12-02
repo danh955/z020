@@ -1,0 +1,15 @@
+﻿@using z020.Website.Services.TicTacToe;
+<MudDialog>
+    <DialogContent>
+        <MudTextField @bind-Value="Name" Label="Name" />
+        <MudRadioGroup @bind-SelectedOption="Piece">
+            <MudRadio Option="Pieces.X">X</MudRadio>
+            <MudRadio Option="Pieces.O">O</MudRadio>
+        </MudRadioGroup>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">OK</MudButton>
+    </DialogActions>
+</MudDialog>
+

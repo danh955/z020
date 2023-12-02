@@ -6,13 +6,11 @@ using z020.Website.Services.TicTacToe;
 public partial class TicTacToe_Board : IDisposable
 {
     private TicTacToeBoard? board;
-
     private string? message;
 
-    [Parameter]
-    public string? BoardName { get; set; }
-
-    [Inject] public TicTacToeEngine? Ttt { get; set; }
+    [Parameter] public required string BoardName { get; set; }
+    [Parameter] public required TicTacToePlayer Player { get; set; }
+    [Inject] public required TicTacToeEngine Engine { get; set; }
 
     public void Dispose()
     {
@@ -28,20 +26,20 @@ public partial class TicTacToe_Board : IDisposable
     {
         base.OnInitialized();
 
-        if (BoardName == null)
+        if (string.IsNullOrWhiteSpace(BoardName))
+        {
+            message = $"Board name must not be empty.";
+            return;
+        }
+
+        board = Engine.GetBoard(BoardName);
+        if (board == null)
         {
             message = $"Board '{BoardName}' not found";
             return;
         }
 
-        board = Ttt?.GetBoard(BoardName);
-
-        if (board != null)
-        {
-            board.OnBoardChanged += BoardChanged;
-            board.PlayerX = new("Mr. X");
-            board.PlayerO = new("Mr. O");
-        }
+        board.OnBoardChanged += BoardChanged;
     }
 
     private void BoardChanged() => this.StateHasChanged();
@@ -60,9 +58,6 @@ public partial class TicTacToe_Board : IDisposable
 
     private void SetPiece(int idx)
     {
-        if (board?.PlayerX != null)
-        {
-            board.SetPayerPiece(idx, board.PlayerX);
-        }
+        board?.SetPayerPiece(idx, Player);
     }
 }

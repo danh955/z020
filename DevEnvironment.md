@@ -22,7 +22,8 @@
 
 - Tools > Options > Text Editor > C# > Advanced > Using Directive > Place 'System' directives first when sorting using = Checked.
 - Tools > Options > Projects and Solutions > General > Track Active Item in Solution Explorer = Checked.
-- Tools > Options > Projects and Solutions > Location > Project location = "c:\Code"
+- Tools > Options > Projects and Solutions > Location > Project location = "C:\Code"
+- CodeMaid > Options > Cleaning > Insert > Insert explicit access modifiers on properties = disable [#956](https://github.com/codecadwallader/codemaid/issues/956)
 
 ## Visual Studio Extensions
 

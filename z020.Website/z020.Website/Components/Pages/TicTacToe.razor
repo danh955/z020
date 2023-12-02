@@ -1,47 +1,28 @@
 ﻿@page "/TicTacToe"
-@using z020.Website.Services;
-@using z020.Website.Services.TicTacToe;
-@inject TicTacToeEngine ttt
-@inject UserService user
 
 <h3>Tic-Tac-Toe</h3>
 <MudDivider Class="my-3"/>
 
 <MudPaper>
-    <MudButton>New Game</MudButton>
-    <MudButton>Join a Game</MudButton>
+    <MudButton @onclick="NewBoardAsync">New</MudButton>
+    <MudButton>Join</MudButton>
 </MudPaper>
 
 <MudGrid>
-    @if (boardNames != null)
+    @if (boardNames == null || boardNames.Count() == 0)
     {
-        @foreach (var item in boardNames)
+        <MudItem Class="pa-10">
+            Add or join a game.
+        </MudItem>
+    }
+    else
+    {
+        @foreach (var name in boardNames)
         {
             <MudItem>
-                <TicTacToe_Board BoardName="@item" />
+                <TicTacToe_Board BoardName="@name" Player="@player" />
             </MudItem>
         }
     }
 </MudGrid>
 
-@message
-
-@code
-{
-    private string userId = string.Empty;
-    private IEnumerable<string>? boardNames;
-    private string? message;
-
-    protected async override Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-        userId = await user.GetUserID();
-        message = userId;
-        GetListOfBoards();
-    }
-
-    private void GetListOfBoards()
-    {
-        boardNames = ttt.UsersBoardNames(userId);
-    }
-}

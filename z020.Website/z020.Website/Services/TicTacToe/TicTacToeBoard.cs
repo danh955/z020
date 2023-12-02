@@ -29,17 +29,26 @@ public class TicTacToeBoard
     /// </summary>
     public TicTacToePlayer? PlayerO { get; set; }
 
-    public bool SetPayerPiece(int idx, TicTacToePlayer player)
+    /// <summary>
+    /// Set the player piece on the board.
+    /// </summary>
+    /// <param name="idx">Location on the board.</param>
+    /// <param name="player">The player.</param>
+    /// <returns>True if player piece was set on the board.</returns>
+    public bool SetPayerPiece(int idx, TicTacToePlayer? player)
     {
-        if (PlayerX == null || PlayerO == null)
-        {
-            return false;
-        }
+        if (player == null) return false;
 
-        Pieces piece = player.Name switch
+        //// TODO: remove comment
+        ////if (PlayerX == null || PlayerO == null)
+        ////{
+        ////    return false;
+        ////}
+
+        Pieces piece = player switch
         {
-            var px when px == PlayerX.Name => Pieces.X,
-            var py when py == PlayerO.Name => Pieces.X,
+            var px when px == PlayerX => Pieces.X,
+            var py when py == PlayerO => Pieces.O,
             _ => Pieces.Empty,
         };
 

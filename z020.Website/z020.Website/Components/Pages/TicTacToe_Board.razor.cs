@@ -1,5 +1,6 @@
 ﻿namespace z020.Website.Components.Pages;
 
+using System.Xml.Linq;
 using Microsoft.AspNetCore.Components;
 using z020.Website.Services.TicTacToe;
 
@@ -8,9 +9,10 @@ public partial class TicTacToe_Board : IDisposable
     private TicTacToeBoard? board;
     private string? message;
 
-    [Parameter] public required string BoardName { get; set; }
-    [Parameter] public required TicTacToePlayer Player { get; set; }
+    [Parameter] public required string Name { get; set; }
+    [Parameter] public required string PlayerId { get; set; }
     [Inject] public required TicTacToeEngine Engine { get; set; }
+    [Inject] public required ILogger<TicTacToe_Board> Logger { get; set; }
 
     public void Dispose()
     {
@@ -26,16 +28,18 @@ public partial class TicTacToe_Board : IDisposable
     {
         base.OnInitialized();
 
-        if (string.IsNullOrWhiteSpace(BoardName))
+        if (string.IsNullOrWhiteSpace(Name))
         {
             message = $"Board name must not be empty.";
             return;
         }
 
-        board = Engine.GetBoard(BoardName);
+        Logger.LogInformation("name={name} ~ {class}.{OnInitialized}", Name, nameof(TicTacToe_Board), nameof(OnInitialized));
+
+        board = Engine.GetBoard(Name);
         if (board == null)
         {
-            message = $"Board '{BoardName}' not found";
+            message = $"Board '{Name}' not found";
             return;
         }
 
@@ -58,6 +62,6 @@ public partial class TicTacToe_Board : IDisposable
 
     private void SetPiece(int idx)
     {
-        board?.SetPayerPiece(idx, Player);
+        board?.SetPayerPiece(idx, PlayerId);
     }
 }

@@ -8,7 +8,7 @@ public partial class NewBoardDialog
 {
     [Inject] public TicTacToeEngine? Engine { get; set; }
 
-    [Parameter] public TicTacToePlayer? Player { get; set; }
+    [Parameter] public string? PlayerId { get; set; }
 
     [CascadingParameter] private MudDialogInstance? Dialog { get; set; }
 
@@ -19,12 +19,13 @@ public partial class NewBoardDialog
     /// Display and get a new board.
     /// </summary>
     /// <param name="DialogService">IDialogService.</param>
+    /// <param name="playerId">The player ID.</param>
     /// <returns>True if successful.</returns>
-    public static async Task<bool> GetAsync(IDialogService DialogService, TicTacToePlayer player)
+    public static async Task<bool> GetAsync(IDialogService DialogService, string playerId)
     {
         var parameters = new DialogParameters<NewBoardDialog>
         {
-            { p => p.Player, player }
+            { p => p.PlayerId, playerId }
         };
 
         var options = new DialogOptions { CloseOnEscapeKey = true, CloseButton = true };
@@ -39,9 +40,9 @@ public partial class NewBoardDialog
 
     private void Submit()
     {
-        if (string.IsNullOrWhiteSpace(Name) || Player == null || Engine == null) return;
+        if (string.IsNullOrWhiteSpace(Name) || PlayerId == null || Engine == null) return;
 
-        bool isSuccessful = Engine.AddBoard(Name, Piece, Player);
+        bool isSuccessful = Engine.AddBoard(Name, Piece, PlayerId);
         Dialog?.Close(DialogResult.Ok(isSuccessful));
     }
 }

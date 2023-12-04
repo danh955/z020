@@ -9,29 +9,26 @@ using z020.Website.Services.TicTacToe;
 public partial class TicTacToe
 {
     private IEnumerable<string>? boardNames;
-    private TicTacToePlayer? player;
+    private string playerId = string.Empty;
 
     [Inject] public required IDialogService DialogService { get; set; }
     [Inject] public required TicTacToeEngine Engine { get; set; }
-    [Inject] public required UserService User { get; set; }
+    [Inject] public required SessionService Session { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
         if (firstRender)
         {
-            var userId = await User.GetUserID();
-            //// TODO: need user management
-            this.player = new(userId, "test");
+            await Session.SetupAfterRenderAsync();
+            playerId = Session.PlayerId;
             UpdateBoardNames();
         }
     }
 
     private async Task NewBoardAsync()
     {
-        if (player == null) return;
-
-        var isSuccessful = await NewBoardDialog.GetAsync(DialogService, player);
+        var isSuccessful = await NewBoardDialog.GetAsync(DialogService, playerId);
         if (isSuccessful)
         {
             UpdateBoardNames();
@@ -40,8 +37,7 @@ public partial class TicTacToe
 
     private void UpdateBoardNames()
     {
-        if (this.player == null) return;
-        boardNames = Engine.UsersBoardNames(player);
+        boardNames = Engine.UsersBoardNames(playerId);
         this.StateHasChanged();
     }
 }

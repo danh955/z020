@@ -1,6 +1,6 @@
 ﻿<MudPaper Elevation="3" Class="pa-1 ma-2">
     <MudPaper Elevation="2" Class="pa-2 mb-2">
-        <b>Name</b>: @board?.Name &nbsp; &nbsp;  <b>X</b>: @board?.PlayerX?.Name &nbsp; &nbsp; <b>O</b>: @board?.PlayerO?.Name
+        <b>Name</b>: @board?.Name &nbsp; &nbsp;  <b>X</b>: @board?.PlayerX &nbsp; &nbsp; <b>O</b>: @board?.PlayerO
     </MudPaper>
     <table class="TicTacToe">
         @for (int row = 0; row < 9; row += 3)

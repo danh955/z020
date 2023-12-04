@@ -19,10 +19,9 @@
     {
         @foreach (var name in boardNames)
         {
-            <MudItem>
-                <TicTacToe_Board BoardName="@name" Player="@player" />
+            <MudItem id="@name">
+                <TicTacToe_Board Name="@name" playerId="@playerId" />
             </MudItem>
         }
     }
 </MudGrid>
-

@@ -1,7 +1,8 @@
 ﻿@using z020.Website.Services.TicTacToe;
 <MudDialog>
     <DialogContent>
-        <MudTextField @bind-Value="Name" Label="Name" />
+        <MudTextField @bind-Value="BoardName" Label="Board Name" />
+        <MudTextField @bind-Value="PlayerName" Label="Players Name" />
         <MudRadioGroup @bind-SelectedOption="Piece">
             <MudRadio Option="Pieces.X">X</MudRadio>
             <MudRadio Option="Pieces.O">O</MudRadio>

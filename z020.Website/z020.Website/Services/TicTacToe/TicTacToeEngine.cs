@@ -10,30 +10,34 @@ public class TicTacToeEngine(ILogger<TicTacToeEngine> logger)
     /// <summary>
     /// Add a new board.
     /// </summary>
-    /// <param name="name">The name for the new board.</param>
+    /// <param name="boardName">The name for the new board.</param>
     /// <param name="piece">What piece the first player will be using.</param>
     /// <param name="playerId">The first player ID.</param>
     /// <returns>True if successful in creating a new board.</returns>
-    public bool AddBoard(string name, Pieces piece, string playerId)
+    public bool AddBoard(string boardName, Pieces piece, string playerId, string playerName)
     {
-        if (string.IsNullOrEmpty(name) || playerId == null)
+        if (string.IsNullOrEmpty(boardName)
+            || string.IsNullOrWhiteSpace(playerId)
+            || string.IsNullOrWhiteSpace(playerName))
         {
-            logger.LogWarning("{func}({name}={nameValue}, {piece}, {playerId}) A parameter is Null or empty.", nameof(AddBoard), nameof(name), name, piece, playerId);
+            logger.LogWarning("{func}({name}={nameValue}, {piece}, {playerId}, {playerName}) A parameter is Null or empty.", nameof(AddBoard), nameof(boardName), boardName, piece, playerId, playerName);
             return false;
         }
 
-        TicTacToeBoard board = new(name);
+        TicTacToeBoard board = new(boardName);
 
-        if (!boards.TryAdd(name, board)) return false;
+        if (!boards.TryAdd(boardName, board)) return false;
 
         switch (piece)
         {
             case Pieces.X:
-                board.PlayerX = playerId;
+                board.PlayerXId = playerId;
+                board.PlayerXName = playerName;
                 break;
 
             case Pieces.O:
-                board.PlayerO = playerId;
+                board.PlayerOId = playerId;
+                board.PlayerOName = playerName;
                 break;
         }
 
@@ -60,8 +64,8 @@ public class TicTacToeEngine(ILogger<TicTacToeEngine> logger)
         logger.LogDebug("playerId={playerId}, boards={boards} ~ {class}.{func}", playerId, boards.Count, nameof(TicTacToeEngine), nameof(UsersBoardNames));
 
         return boards.Values
-            .Where(b => b.PlayerX == playerId || b.PlayerO == playerId)
-            .Select(b => b.Name)
+            .Where(b => b.PlayerXId == playerId || b.PlayerOId == playerId)
+            .Select(b => b.BoardName)
             .OrderBy(b => b)
             .ToList();
     }

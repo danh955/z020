@@ -2,32 +2,48 @@
 
 public class TicTacToeBoard
 {
-    public TicTacToeBoard(string name)
+    public TicTacToeBoard(string boardName)
     {
-        Name = name;
+        BoardName = boardName;
         Square = new Pieces[9];
         ClearBoard();
     }
 
+    public event Action? OnBoardChanged;
+
     /// <summary>
     /// Name of the board.
     /// </summary>
-    public string Name { get; init; }
+    public string BoardName { get; init; }
+
+    /// <summary>
+    /// Player O.
+    /// </summary>
+    public string PlayerOId { get; set; } = string.Empty;
+
+    public string PlayerOName { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Player X.
+    /// </summary>
+    public string PlayerXId { get; set; } = string.Empty;
+
+    public string PlayerXName { get; set; } = string.Empty;
 
     /// <summary>
     /// Squares on the board.
     /// </summary>
     public Pieces[] Square { get; init; }
 
-    /// <summary>
-    /// Player X.
-    /// </summary>
-    public string PlayerX { get; set; } = string.Empty;
+    public void ClearBoard()
+    {
+        for (int idx = 0; idx < Square.Length; idx++)
+        {
+            Square[idx] = Pieces.Empty;
+        }
 
-    /// <summary>
-    /// Player O.
-    /// </summary>
-    public string PlayerO { get; set; } = string.Empty;
+        OnBoardChanged?.Invoke();
+    }
 
     /// <summary>
     /// Set the player piece on the board.
@@ -38,15 +54,15 @@ public class TicTacToeBoard
     public bool SetPayerPiece(int idx, string playerId)
     {
         ////TODO: remove comment
-        ////if (string.IsNullOrWhiteSpace(PlayerX) || string.IsNullOrWhiteSpace(PlayerO))
+        ////if (string.IsNullOrWhiteSpace(PlayerXId) || string.IsNullOrWhiteSpace(PlayerOId))
         ////{
         ////    return false;
         ////}
 
         Pieces piece = playerId switch
         {
-            var px when px == PlayerX => Pieces.X,
-            var py when py == PlayerO => Pieces.O,
+            var px when px == PlayerXId => Pieces.X,
+            var py when py == PlayerOId => Pieces.O,
             _ => Pieces.Empty,
         };
 
@@ -59,16 +75,4 @@ public class TicTacToeBoard
         OnBoardChanged?.Invoke();
         return true;
     }
-
-    public void ClearBoard()
-    {
-        for (int idx = 0; idx < Square.Length; idx++)
-        {
-            Square[idx] = Pieces.Empty;
-        }
-
-        OnBoardChanged?.Invoke();
-    }
-
-    public event Action? OnBoardChanged;
 }

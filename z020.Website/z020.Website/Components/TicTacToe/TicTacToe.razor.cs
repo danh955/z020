@@ -1,8 +1,7 @@
-﻿namespace z020.Website.Components.Pages;
+﻿namespace z020.Website.Components.TicTacToe;
 
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using z020.Website.Components.DialogBox;
 using z020.Website.Services;
 using z020.Website.Services.TicTacToe;
 

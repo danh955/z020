@@ -1,4 +1,4 @@
-﻿namespace z020.Website.Components.Pages;
+﻿namespace z020.Website.Components.TicTacToe;
 
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Components;
@@ -46,7 +46,7 @@ public partial class TicTacToe_Board : IDisposable
         board.OnBoardChanged += BoardChanged;
     }
 
-    private void BoardChanged() => this.StateHasChanged();
+    private void BoardChanged() => StateHasChanged();
 
     private void ClearBoard() => board?.ClearBoard();
 

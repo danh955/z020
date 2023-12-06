@@ -1,4 +1,4 @@
-﻿namespace z020.Website.Components.DialogBox;
+﻿namespace z020.Website.Components.TicTacToe;
 
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
